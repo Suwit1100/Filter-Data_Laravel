@@ -13,7 +13,7 @@ class FilterDataController extends Controller
     public function index()
     {
         PaginationPaginator::useBootstrap();
-        $testid = "24";
+        $testid = "";
         $response = Http::get('https://6624b23204457d4aaf9cc0f6.mockapi.io/api/ApiMockFSW/ProductMock');
         $product = collect($response->json());
 
