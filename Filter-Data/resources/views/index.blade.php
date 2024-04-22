@@ -25,45 +25,64 @@
                 <h4>รายการสินค้า</h4>
             </div>
             <div class="col-4 ">
-                <div class="accordion accordion-flush border border-1 mt-1" id="accordionFlushExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                aria-controls="flush-collapseOne">
-                                ค้นหารายการสินค้า
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse"
-                            aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <input type="text" class="form-control" placeholder="ค้นหาสินค้า">
+                <form action="{{ route('index') }}" method="GET">
+                    <div class="accordion accordion-flush border border-1 mt-1" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
+                                    ค้นหารายการสินค้า
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <input type="text" class="form-control" placeholder="ค้นหาสินค้า" name="search"
+                                        value="{{ $searchname }}">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                aria-controls="flush-collapseTwo">
-                                เรียงข้อมูลตามราคา
-                            </button>
-                        </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                            aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body text-center">
-                                <input type="radio" class="btn-check" name="options" id="option1"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-primary" for="option1">เรียงจากน้อยไปมาก</label>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                    เรียงข้อมูลตามราคา
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body text-center">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input type="radio" class="btn-check" name="sortprice" id="option0"
+                                                autocomplete="off" value=""
+                                                {{ $sortprice == '' ? 'checked' : '' }}>
+                                            <label class="btn btn-outline-primary" for="option0">ค่าเริ่มต้น</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="radio" class="btn-check" name="sortprice" id="option1"
+                                                autocomplete="off" value="asc"
+                                                {{ $sortprice == 'asc' ? 'checked' : '' }}>
+                                            <label class="btn btn-outline-primary"
+                                                for="option1">เรียงจากน้อยไปมาก</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="radio" class="btn-check" name="sortprice" id="option2"
+                                                autocomplete="off" value="desc"
+                                                {{ $sortprice == 'desc' ? 'checked' : '' }}>
+                                            <label class="btn btn-outline-primary"
+                                                for="option2">เรียงจากมากไปน้อย</label>
+                                        </div>
+                                    </div>
 
-                                <input type="radio" class="btn-check" name="options" id="option2"
-                                    autocomplete="off">
-                                <label class="btn btn-outline-primary" for="option2">เรียงจากมากไปน้อย</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <button class="form-control mt-2 btn btn-primary ">แสดงผลลัพธ์</button>
+                    <button class="form-control mt-2 btn btn-primary " type="submit">แสดงผลลัพธ์</button>
+                </form>
             </div>
             <div class="col-8 ">
                 <div class="row">
@@ -96,8 +115,18 @@
                                 </div>
                             </div>
                         @endforeach
-
-                        {{ $paginator->links() }}
+                        <div>
+                            <div class="row d-flex align-items-center">
+                                <div class="col-9">
+                                    {{ $paginator->links() }}
+                                </div>
+                                <div class="col-3">
+                                    <h5>
+                                        {{ $paginator->count() }} จากทั้งหมด {{ $paginator->total() }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
                     @else
                         <!-- ถ้าไม่มีข้อมูล -->
                         ไม่มีข้อมูล
