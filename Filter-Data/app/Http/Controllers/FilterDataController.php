@@ -22,7 +22,7 @@ class FilterDataController extends Controller
         });
 
         // จำนวนรายการที่ต้องการแสดงต่อหน้า
-        $perPage = 8;
+        $perPage = 6;
 
         if ($filteredProduct->count() > 0) {
             // หาหน้าปัจจุบัน
